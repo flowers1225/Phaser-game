@@ -2,10 +2,12 @@
   "name": "moto",
   "version": "0.0.1",
   "scripts": {
-    "dist": "gulp",
+    "dist": "webpack --config webpack.dll.js && gulp",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --inline"
   },
   "devDependencies": {
+    "exports-loader": "^0.6.4",
+    "file-loader": "*",
     "gulp": "*",
     "gulp-copy": "0.0.2",
     "gulp-cssmin": "^0.1.7",

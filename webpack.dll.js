@@ -1,7 +1,10 @@
+/**
+ * Created by z on 2017/5/31.
+ */
 
 var path = require('path');
 var webpack = require('webpack');
-var DllReferencePlugin = webpack.DllReferencePlugin;
+var DllPlugin = webpack.DllPlugin;
 
 var phaserModule = path.join(__dirname, '/node_modules/phaser/');
 var phaser = path.join(phaserModule, 'build/custom/phaser-split.js'),
@@ -10,11 +13,12 @@ var phaser = path.join(phaserModule, 'build/custom/phaser-split.js'),
 
 module.exports = {
     entry: {
-        main: "./src/js/index.js",
+        vendor: [pixi, p2, phaser],
     },
     output: {
         path: '.',
-        filename: "./dist/js/[name].js"
+        filename: './dist/js/[name].js',
+        library: '[name]_library'
     },
     module: {
         loaders: [
@@ -31,6 +35,18 @@ module.exports = {
                 test: /\.hbs/,
                 loader: "handlebars-loader"
             },
+            {
+                test: /pixi\.js/,
+                loader: 'expose?PIXI'
+            },
+            {
+                test: /p2\.js/,
+                loader: 'expose?p2'
+            },
+            {
+                test: /phaser-split\.js$/,
+                loader: 'expose?Phaser!imports?PIXI=pixi!imports?p2=p2'
+            }
         ]
     },
     resolve: {
@@ -42,13 +58,14 @@ module.exports = {
         }
     },
     plugins: [
-        new DllReferencePlugin({
+        new DllPlugin({
+            path: 'manifest.json',
+            name: '[name]_library',
             context: __dirname,
-            manifest: require('./manifest.json')
-        })
+        }),
     ],
     externals: {
         '$':'window.$',
-        'global' : 'window.global'
+        'global' : 'window.global',
     }
 };

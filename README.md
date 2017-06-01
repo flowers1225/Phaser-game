@@ -13,12 +13,12 @@ $ git clone https://github.com/flowers1225/Phaser-game.git
 
 $ npm install
 
-$ gulp
+$ npm run dist
 
 ```
 # TODO
 
-- webpack的打包性能优化
+- webpack的打包性能优化(利用dll解决)
  
 
 
