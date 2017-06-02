@@ -13,7 +13,7 @@ $ git clone https://github.com/flowers1225/Phaser-game.git
 
 $ npm install
 
-$ npm run dist
+$ npm run dev
 
 ```
 # TODO

@@ -16,7 +16,7 @@ module.exports = {
         vendor: [pixi, p2, phaser],
     },
     output: {
-        path: '.',
+        path: path.resolve(__dirname, './'),
         filename: './dist/js/[name].js',
         library: '[name]_library'
     },
@@ -37,15 +37,15 @@ module.exports = {
             },
             {
                 test: /pixi\.js/,
-                loader: 'expose?PIXI'
+                loader: 'expose-loader?PIXI'
             },
             {
                 test: /p2\.js/,
-                loader: 'expose?p2'
+                loader: 'expose-loader?p2'
             },
             {
                 test: /phaser-split\.js$/,
-                loader: 'expose?Phaser!imports?PIXI=pixi!imports?p2=p2'
+                loader: 'expose-loader?Phaser!imports-loader?PIXI=pixi!imports-loader?p2=p2'
             }
         ]
     },

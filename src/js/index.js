@@ -1,4 +1,6 @@
-"use strict";
+
+import '../less/style.less';
+// import 'file-loader!../index.html';
 
 import 'zepto';
 import 'pixi';
@@ -24,7 +26,8 @@ class Game extends Phaser.Game { // 子类继承父类Phaser.Game
         this.state.start('Boot'); //启动
     }
 }
-
 window.game = new Game();
 
- 
+// if (module.hot) {
+//     module.hot.accept();
+// }

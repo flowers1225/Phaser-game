@@ -1,10 +1,1 @@
-{
-  "name": "vendor_library",
-  "content": {
-    "./node_modules/phaser/build/custom/pixi.js": 2,
-    "./node_modules/phaser/build/custom/p2.js": 4,
-    "./node_modules/phaser/build/custom/phaser-split.js": 5,
-    "./node_modules/imports-loader/index.js?PIXI=pixi!./node_modules/imports-loader/index.js?p2=p2!./node_modules/phaser/build/custom/phaser-split.js": 6,
-    "./node_modules/process/browser.js": 7
-  }
-}
+{"name":"vendor_library","content":{"./node_modules/webpack/buildin/global.js":{"id":0,"meta":{}},"./node_modules/phaser/build/custom/pixi.js":{"id":6,"meta":{}},"./node_modules/phaser/build/custom/p2.js":{"id":5,"meta":{}},"./node_modules/phaser/build/custom/phaser-split.js":{"id":3,"meta":{}},"./node_modules/imports-loader/index.js?PIXI=pixi!./node_modules/imports-loader/index.js?p2=p2!./node_modules/phaser/build/custom/phaser-split.js":{"id":4,"meta":{}},"./node_modules/process/browser.js":{"id":7,"meta":{}}}}

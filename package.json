@@ -2,11 +2,15 @@
   "name": "moto",
   "version": "0.0.1",
   "scripts": {
-    "dist": "webpack --config webpack.dll.js && gulp",
-    "dev": "webpack-dev-server --devtool eval --progress --colors --hot --inline"
+    "dist": "webpack",
+    "dev": "webpack --config webpack.dll.js && webpack-dev-server --devtool eval --progress --colors --inline --hot"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^4.0.1",
+    "css-hot-loader": "^1.1.1",
+    "css-loader": "^0.28.4",
     "exports-loader": "^0.6.4",
+    "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "*",
     "gulp": "*",
     "gulp-copy": "0.0.2",
@@ -17,12 +21,15 @@
     "gulp-qn": "^0.1.1",
     "gulp-rename": "^1.2.2",
     "gulp-util": "^3.0.7",
+    "html-webpack-include-assets-plugin": "0.0.5",
+    "html-webpack-plugin": "^2.28.0",
     "imports-loader": "^0.6.5",
     "less": "^2.7.0",
-    "style-loader": "^0.13.0",
+    "less-loader": "^4.0.4",
+    "style-loader": "^0.13.2",
     "url-loader": "*",
-    "webpack": "^1.12.2",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^2.6.0",
+    "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
     "babel": "^6.5.2",

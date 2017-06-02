@@ -42,7 +42,7 @@ export default class Preload extends Phaser.State {
         };
 
         const imgPath = './dist/img/';
-        const mediaPath = './dist/media/';
+        const mediaPath = './dist/img/';
 
         this.load.crossOrigin = true;
         this.load.image('bg', imgPath + 'bg.jpg');
@@ -89,7 +89,7 @@ export default class Preload extends Phaser.State {
                 
             //this.state.start('Over');
         },100);
-        
+
     }
     
 }

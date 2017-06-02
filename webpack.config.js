@@ -1,6 +1,12 @@
 
 var path = require('path');
 var webpack = require('webpack');
+
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 var DllReferencePlugin = webpack.DllReferencePlugin;
 
 var phaserModule = path.join(__dirname, '/node_modules/phaser/');
@@ -13,23 +19,31 @@ module.exports = {
         main: "./src/js/index.js",
     },
     output: {
-        path: '.',
+        path: path.resolve(__dirname, './'),
         filename: "./dist/js/[name].js"
     },
     module: {
-        loaders: [
+        rules: [
+            {
+                test: /\.less$/,
+                use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'less-loader']
+                })),
+                exclude: /(node_modules|bower_components)/
+            },
             {
                 test: /js[\/|\\]lib[\/||\\][\w|\.|_|-]+js$/,
-                loader: 'url-loader?importLoaders=1&limit=1000&name=/dist/js/lib/[name].[ext]'
+                use: 'url-loader?importLoaders=1&limit=1000&name=./dist/js/lib/[name].[ext]'
             },
             {
                 test:/\.js$/,
-                loader: 'babel-loader',
+                use: 'babel-loader',
                 exclude: /(node_modules|bower_components)/,
             },
             {
                 test: /\.hbs/,
-                loader: "handlebars-loader"
+                use: "handlebars-loader"
             },
         ]
     },
@@ -45,7 +59,29 @@ module.exports = {
         new DllReferencePlugin({
             context: __dirname,
             manifest: require('./manifest.json')
-        })
+        }),
+        new CopyWebpackPlugin([{
+            context: __dirname,
+            from: './src/img',
+            to: './dist/img'
+        }]),
+        new CopyWebpackPlugin([{
+            context: __dirname,
+            from: './src/media',
+            to: './dist/img'
+        }]),
+        new ExtractTextPlugin("./dist/css/style.css"),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './src/index.html',
+            inject: true
+        }),
+        new HtmlWebpackIncludeAssetsPlugin({
+            assets: ['./dist/js/vendor.js'],
+            files: ['index.html'],
+            append: false,
+            hash: true
+        }),
     ],
     externals: {
         '$':'window.$',
