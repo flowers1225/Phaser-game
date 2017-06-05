@@ -11,9 +11,13 @@ var phaser = path.join(phaserModule, 'build/custom/phaser-split.js'),
     pixi = path.join(phaserModule, 'build/custom/pixi.js'),
     p2 = path.join(phaserModule, 'build/custom/p2.js');
 
+var zepto = path.join(__dirname, 'src/js/lib/zepto.min.js');
+
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = {
     entry: {
-        vendor: [pixi, p2, phaser],
+        vendor: [zepto, pixi, p2, phaser],
     },
     output: {
         path: path.resolve(__dirname, './'),
@@ -21,37 +25,37 @@ module.exports = {
         library: '[name]_library'
     },
     module: {
-        loaders: [
-            {
-                test: /js[\/|\\]lib[\/||\\][\w|\.|_|-]+js$/,
-                loader: 'url-loader?importLoaders=1&limit=1000&name=/dist/js/lib/[name].[ext]'
-            },
+        rules: [
             {
                 test:/\.js$/,
-                loader: 'babel-loader',
+                use: 'babel-loader',
                 exclude: /(node_modules|bower_components)/,
             },
             {
-                test: /\.hbs/,
-                loader: "handlebars-loader"
+                test: /zepto\.min\.js/,
+                use: 'expose-loader?$'
             },
             {
                 test: /pixi\.js/,
-                loader: 'expose-loader?PIXI'
+                use: 'expose-loader?PIXI'
             },
             {
                 test: /p2\.js/,
-                loader: 'expose-loader?p2'
+                use: 'expose-loader?p2'
             },
             {
                 test: /phaser-split\.js$/,
-                loader: 'expose-loader?Phaser!imports-loader?PIXI=pixi!imports-loader?p2=p2'
+                use: [{
+                    loader: 'expose-loader?Phaser'
+                },{
+                    loader: 'imports-loader?PIXI=pixi!imports-loader?p2=p2'
+                }]
             }
         ]
     },
     resolve: {
         alias: {
-            'zepto': './lib/zepto.min.js',
+            'zepto': zepto,
             'phaser': phaser,
             'pixi': pixi,
             'p2': p2
@@ -63,6 +67,7 @@ module.exports = {
             name: '[name]_library',
             context: __dirname,
         }),
+        new UglifyJSPlugin()
     ],
     externals: {
         '$':'window.$',

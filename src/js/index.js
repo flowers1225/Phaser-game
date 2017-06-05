@@ -28,6 +28,3 @@ class Game extends Phaser.Game { // 子类继承父类Phaser.Game
 }
 window.game = new Game();
 
-// if (module.hot) {
-//     module.hot.accept();
-// }
